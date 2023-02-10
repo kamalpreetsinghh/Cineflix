@@ -1,0 +1,65 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model Cineflix.ViewModels.MovieViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="flex">
+    <div class="flex-col my-5">
+        <img class="movie-detail-image" src="data:image/png;base64, @Model.Movie.MovieThumbnail" alt="Movie Image" />
+        <div class="flex">
+            <div class="flex-col w-50 mx-1 div-link">
+                <a asp-action="Index">Back to List</a>
+            </div>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                if (Model.IsPurchased)
+                {
+                    <div class="flex-col w-50 mx-1 div-link">
+                        <a asp-action="Play">Watch</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="flex-col w-50 mx-1 div-link">
+                        <a asp-controller="PurchaseMovies" asp-action="Purchase" asp-route-id="@Model.Movie.Id">Buy</a>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="flex-col w-50 mx-1 div-link">
+                    <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="movie-description flex-col m-5">
+        <h3 class="my-5">@Html.DisplayFor(model => model.Movie.Title)</h3>
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Movie.ReleaseDate):
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Movie.ReleaseDate)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Movie.Genre):
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.Movie.Genre)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Movie.Price):
+            </dt>
+            <dd class="col-sm-8">
+                $
+                @Html.DisplayFor(model => model.Movie.Price)
+            </dd>
+        </dl>
+    </div>
+</div>
+

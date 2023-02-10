@@ -1,0 +1,104 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model IEnumerable<Cineflix.ViewModels.MovieViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="grid-container">
+    @foreach (var item in Model)
+    {
+        <div class="movie-card">
+            <div class="movie-container">
+                <img class="movie-image" src="data:image/png;base64, @item.Movie.MovieThumbnail" alt="Movie Image" />
+                <div class="middle">
+                    <div class="div-link">
+                        <a asp-action="Details" asp-route-id="@item.Movie.Id">Info</a>
+                    </div>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        if (item.IsPurchased)
+                        {
+                            <div class="div-link">
+                                <a asp-action="Play">Watch</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="div-link">
+                                @*<button onclick="showAlert(@item.Id)">Buy</button>*@
+                                <a asp-controller="PurchaseMovies" asp-action="Purchase" asp-route-id="@item.Movie.Id">Buy</a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="div-link">
+                            <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+                        </div>
+
+                    }
+                </div>
+            </div>
+            <h6>@item.Movie.Title</h6>
+        </div>
+    }
+</div>
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReleaseDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Genre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MovieThumbnail)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MovieThumbnail)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@
+

@@ -1,0 +1,113 @@
+﻿html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+}
+
+.movie-card {
+    width: 200px;
+    height: 300px;
+    text-align: center;
+}
+
+.movie-image {
+    width: 200px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: .5s ease;
+}
+
+.middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.movie-container {
+    position: relative;
+}
+
+    .movie-container:hover img {
+        opacity: 0.3;
+    }
+
+    .movie-container:hover div {
+        opacity: 1
+    }
+
+.div-link {
+    background-color: black;
+    border-radius: 4px;
+    color: white;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    text-align:center;
+}
+
+    .div-link:hover {
+        background-color: forestgreen;
+    }
+
+
+    .div-link a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .div-link button {
+        background-color: transparent;
+        color: white;
+        border: none
+    }
+
+.movie-detail-image {
+    width: 350px;
+    height: 455px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.flex {
+    display: flex;
+}
+
+.movie-description {
+    margin: 20px;
+}
+
+.movie-play {
+    display:flex;
+    background-color:black;
+    width:66%;
+    height:66%;
+    position:fixed;
+}

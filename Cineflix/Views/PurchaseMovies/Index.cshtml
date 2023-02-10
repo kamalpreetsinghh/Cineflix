@@ -1,0 +1,25 @@
+@model List<Cineflix.ViewModels.MovieViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="grid-container">
+    @foreach (var item in Model)
+    {
+        <div class="movie-card">
+            <div class="movie-container">
+                <img class="movie-image" src="data:image/png;base64, @item.Movie.MovieThumbnail" alt="Movie Image" />
+                <div class="middle">
+                    <div class="div-link">
+                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@item.Movie.Id">Info</a>
+                    </div>
+                    <div class="div-link">
+                        <a asp-controller="Movies" asp-action="Play">Watch</a>
+                    </div>
+                </div>
+            </div>
+            <h6>@item.Movie.Title</h6>
+        </div>
+    }
+</div>
